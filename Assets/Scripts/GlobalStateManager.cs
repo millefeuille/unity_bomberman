@@ -35,6 +35,7 @@ public class GlobalStateManager : MonoBehaviour
 {
     private int deadPlayers = 0; // 死亡したプレイヤーの数
     private int deadPlayerNumber = -1; // 死亡したプレイヤーの番号
+    public GameObject retryButton;  // リトライボタン
 
     public void PlayerDied (int playerNumber)
     {
@@ -77,5 +78,8 @@ public class GlobalStateManager : MonoBehaviour
             // 引き分け
             Debug.Log("引き分け");
         }
+
+        // リトライボタンを表示
+        retryButton.SetActive(true);
     }
 }
