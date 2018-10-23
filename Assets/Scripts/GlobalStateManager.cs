@@ -30,12 +30,14 @@
 
 using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class GlobalStateManager : MonoBehaviour
 {
     private int deadPlayers = 0; // 死亡したプレイヤーの数
     private int deadPlayerNumber = -1; // 死亡したプレイヤーの番号
     public GameObject retryButton;  // リトライボタン
+    public GameObject gameSetText;  // 勝利判定結果UI用テキスト
 
     public void PlayerDied (int playerNumber)
     {
@@ -56,6 +58,8 @@ public class GlobalStateManager : MonoBehaviour
 
     void CheckPlayersDeath()
     {
+        string resultText = "";
+
         // 死亡したプレイヤーが 1 人だけの場合
         if (deadPlayers == 1)
         {
@@ -63,23 +67,27 @@ public class GlobalStateManager : MonoBehaviour
             if (deadPlayerNumber == 1)
             {
                 // プレイヤー 2 が勝利した
-                Debug.Log("プレイヤー 2 の勝利！");
+                resultText = "プレイヤー 2 の勝利！";
             }
             // プレイヤー 2 が死亡した場合
             else
             {
                 // プレイヤー 1 が勝利した
-                Debug.Log("プレイヤー 1 の勝利！");
+                resultText = "プレイヤー 1 の勝利！";
             }
         }
         // すべてのプレイヤーが死亡した場合
         else
         {
             // 引き分け
-            Debug.Log("引き分け");
+            resultText = "引き分け";
         }
 
         // リトライボタンを表示
         retryButton.SetActive(true);
+
+        // 勝利判定結果UIテキストに結果をセットして表示
+        gameSetText.GetComponent<Text>().text = resultText;
+        gameSetText.SetActive(true);
     }
 }
