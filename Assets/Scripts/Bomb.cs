@@ -7,6 +7,7 @@ public class Bomb : MonoBehaviour {
     public GameObject explosionPrefab; // 爆発エフェクトのプレハブ
     public LayerMask levelMask; // ステージのレイヤー
     private bool exploded = false; // すでに爆発している場合 true
+    public GameObject owner; // 爆弾を設置したプレイヤ
 
     // Use this for initialization
     void Start () {

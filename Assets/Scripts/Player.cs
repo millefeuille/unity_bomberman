@@ -169,7 +169,7 @@ public class Player : MonoBehaviour
         if (canDropBombs && (Input.GetKeyDown (KeyCode.KeypadEnter) || Input.GetKeyDown (KeyCode.Return)))
         { //Drop Bomb. For Player 2's bombs, allow both the numeric enter as the return key or players 
             //without a numpad will be unable to drop bombs
-            DropBomb ();
+                DropBomb();
         }
     }
 
@@ -178,7 +178,12 @@ public class Player : MonoBehaviour
     /// </summary>
     private void DropBomb ()
     {
-        if (bombPrefab)
+
+        // 本プレイヤが設置した爆弾のオブジェクトを取得
+        GameObject[] bombObjects = GameObject.FindGameObjectsWithTag("Owner" + playerNumber);
+
+        // 爆弾Prefabが存在し、最大設置数を下回っていたら爆弾を設置する
+        if (bombPrefab && (bombObjects.Length < this.bombs))
         { //Check if bomb prefab is assigned first
             // X 座標と Y 座標を四捨五入
             var pos = new Vector3
@@ -189,12 +194,15 @@ public class Player : MonoBehaviour
             );
 
             // 爆弾のゲームオブジェクトを作成
-            Instantiate
+            GameObject bomb = Instantiate
             (
                 bombPrefab,
                 pos,
                 bombPrefab.transform.rotation
             );
+
+            // 設置した爆弾に設置者を示すタグをつける
+            bomb.tag = "Owner" + playerNumber;
         }
     }
 
